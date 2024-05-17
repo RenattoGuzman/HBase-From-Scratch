@@ -1,0 +1,52 @@
+[
+    {
+      "rowkey": "0001",
+      "Details": {
+        "Title": {"Timestamp1": "Game of Thrones"},
+        "StartYear": {"Timestamp1": "2011"},
+        "EndYear": {"Timestamp1": "2019"},
+        "Creators": {
+          "Timestamp1": "David Benioff",
+          "Timestamp2": "D.B. Weiss"
+        }
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Emilia Clarke",
+          "Timestamp2": "Kit Harington",
+          "Timestamp3": "Sophie Turner"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1": "Fantasy",
+          "Timestamp2": "Drama"
+        },
+        "Rating": {"Timestamp1": "9.2"}
+      }
+    },
+    {
+      "rowkey": "0002",
+      "Details": {
+        "Title": {"Timestamp1": "Breaking Bad"},
+        "StartYear": {"Timestamp1": "2008"},
+        "EndYear": {"Timestamp1": "2013"},
+        "Creator": {"Timestamp1": "Vince Gilligan"}
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Bryan Cranston",
+          "Timestamp2": "Aaron Paul",
+          "Timestamp3": "Anna Gunn"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1": "Crime",
+          "Timestamp2": "Drama",
+          "Timestamp3": "Thriller"
+        },
+        "Rating": {"Timestamp1": "9.5"}
+      }
+    }
+  ]

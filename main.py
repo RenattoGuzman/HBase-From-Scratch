@@ -32,3 +32,11 @@
 # TODO: Crear funciones auxiliares si es necesario
 
 # TODO: Interfaz gráfica
+
+import json
+import pandas as pd
+
+from hbase import * 
+
+
+scan("movies")

@@ -1,0 +1,42 @@
+[
+    {
+      "rowkey": "0001",
+      "Details": {
+        "Title": {"Timestamp1": "The Shawshank Redemption"},
+        "Year": {"Timestamp1": "1994"},
+        "Director": {"Timestamp1": "Frank Darabont"}
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Tim Robbins",
+          "Timestamp2": "Morgan Freeman"
+        }
+      },
+      "Metadata": {
+        "Genre": {"Timestamp1": "Drama"},
+        "Rating": {"Timestamp1": "9.3"}
+      }
+    },
+    {
+      "rowkey": "0002",
+      "Details": {
+        "Title": {"Timestamp1": "The Godfather"},
+        "Year": {"Timestamp1": "1972"},
+        "Director": {"Timestamp1": "Francis Ford Coppola"}
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Marlon Brando",
+          "Timestamp2": "Al Pacino",
+          "Timestamp3": "James Caan"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1": "Crime",
+          "Timestamp2": "Drama"
+        },
+        "Rating": {"Timestamp1": "9.2"}
+      }
+    }
+  ]
