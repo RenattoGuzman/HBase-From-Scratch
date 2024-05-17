@@ -3,43 +3,43 @@ from utils import *
 
 
 # Métodos DDL
-def create_table(self, table_name, column_families):
+def create_table(table_name, column_families):
     pass
 
-def list_tables(self):
+def list_tables():
     pass
 
-def disable_table(self, table_name):
+def disable_table(table_name):
     pass
 
-def is_table_enabled(self, table_name):
+def is_table_enabled(table_name):
     pass
 
-def alter_table(self, table_name, new_column_families):
+def alter_table(table_name, new_column_families):
     pass
 
-def drop_table(self, table_name):
+def drop_table(table_name):
     pass
 
-def drop_all_tables(self):
+def drop_all_tables():
     pass
 
-def describe_table(self, table_name):
+def describe_table(table_name):
     pass
 
 # Métodos DML
-def put(self, table_name, row_key, column_family, column_qualifier, value, timestamp=None):
+def put(table_name, row_key, column_family, column_qualifier, value, timestamp=None):
     pass
 
-def get(self, table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
+def get(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
     pass
 
 def scan(table_name):
     
     if not table_exists(table_name):
-        print("Table does not exist")
+        print(f"Table '{table_name}' does not exist")
         return
-    print("\n  TABLA = " + table_name.upper() + "\n")
+    print("\n  TABLE: " + table_name.upper() + "\n")
         
     table_data = get_file_data(table_name)
     print("ROWKEY   COLUMN+CELL")
@@ -57,14 +57,20 @@ def scan(table_name):
     
     
 
-def delete(self, table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
+def delete(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
     pass
 
-def delete_all(self, table_name, row_key):
+def delete_all(table_name, row_key):
     pass
 
-def count(self, table_name):
-    pass
+def count(table_name):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+        
+    table_data = get_file_data(table_name)
+    length = len(table_data)
+    print("\n  COUNT OF TABLE " + table_name.upper() + f": {length}\n")
 
-def truncate(self, table_name):
+def truncate(table_name):
     pass
