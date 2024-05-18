@@ -43,3 +43,7 @@ from hbase import *
 
 
 count("shows")
+
+scan("shows")
+
+drop_table("movies")

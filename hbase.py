@@ -19,7 +19,12 @@ def alter_table(table_name, new_column_families):
     pass
 
 def drop_table(table_name):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+    
+    delete_table_file(table_name)
+    print(f"Table '{table_name}' has been dropped")
 
 def drop_all_tables():
     pass
@@ -53,9 +58,6 @@ def scan(table_name):
                     else:
                         for timestamp, value in values.items():
                             print(f" {rowkey}    Column:{column_family}:{column_qualifier}:{timestamp}, {value}")
-            
-    
-    
 
 def delete(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
     pass
