@@ -52,7 +52,6 @@ from hbase import *
 # DROP ALL
 #drop_all_tables()
 
-describe_table("my_new_table")
 
 table = "movies"
 row_key = "0001"
@@ -60,10 +59,10 @@ family = "Cast"
 qualifier = "Extras"
 value = "Renatto Guzman"
 
-#column_families = ["Details", "Cast", "Metadata"]
+column_families = ["Details", "Cast", "Metadata"]
 
 #Crear tabla 
-#create_table("my_new_table", column_families)
+create_table("new", column_families)
 
 #put(table, row_key, family, qualifier, value)
 
