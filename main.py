@@ -41,11 +41,23 @@ import pandas as pd
 
 from hbase import * 
 
+## COUNT
+# count("shows")
 
-count("shows")
+## SCAN
+# scan("shows")
 
-scan("shows")
-
+## DROP TABLE
 #drop_table("movies")
-
+# DROP ALL
 #drop_all_tables()
+
+#describe_table("movies")
+
+table = "movies"
+row_key = "0001"
+family = "Cast"
+qualifier = "Extras"
+value = "Renatto Guzman"
+
+put(table, row_key, family, qualifier, value)
