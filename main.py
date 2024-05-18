@@ -2,7 +2,7 @@
 #  Proyecto 3 Base de Datos 2
 #  Universidad del Valle de Guatemala
 
-# Creado por Xavier Alvarado, Mario Guerra y Renatto Guzmán
+# Creado por Javier Alvarado, Mario Guerra y Renatto Guzmán
 
 # TODO: DONE Definir las estructuras de datos para almacenar las tablas y sus datos
 
@@ -46,4 +46,6 @@ count("shows")
 
 scan("shows")
 
-drop_table("movies")
+#drop_table("movies")
+
+#drop_all_tables()

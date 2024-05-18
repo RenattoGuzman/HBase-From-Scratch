@@ -27,7 +27,13 @@ def drop_table(table_name):
     print(f"Table '{table_name}' has been dropped")
 
 def drop_all_tables():
-    pass
+    tables = get_all_tables()
+    if not tables:
+        print("No tables found.")
+        return
+    for table in tables:
+        delete_table_file(table)
+    print("All tables have been dropped.")
 
 def describe_table(table_name):
     pass

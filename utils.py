@@ -15,3 +15,6 @@ def get_file_data(table_name):
 def delete_table_file(table_name):
     file_path = "data/" + table_name + ".json"
     os.remove(file_path)
+
+def get_all_tables():
+    return [f.split(".")[0] for f in os.listdir("data") if f.endswith(".json")]
