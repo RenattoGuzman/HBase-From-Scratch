@@ -195,4 +195,22 @@ def count(table_name):
     print("\n  COUNT OF TABLE '" + table_name.upper() + f"': {length}\n")
 
 def truncate(table_name):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    table_data = get_file_data(table_name)
+    
+    # Preservar la estructura de la tabla (familias de columnas)
+    column_families = {family: {} for family in table_data[0] if family != "rowkey"}
+
+    # Crear un nuevo contenido vacío pero con la estructura de la tabla original
+    truncated_table_data = []
+
+    for row in table_data:
+        truncated_row = {"rowkey": row["rowkey"]}
+        truncated_row.update(column_families)
+        truncated_table_data.append(truncated_row)
+
+    save_file_data(table_name, truncated_table_data)
+    print(f"Table '{table_name}' has been truncated")

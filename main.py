@@ -80,10 +80,11 @@ scan("shows")
 #delete("shows", "0002", "Metadata", "Rating")
 
 # Eliminar todos los datos de la fila "0001" en la tabla "movies"
-delete_all("movies", "0001")
+#delete_all("movies", "0001")
 
 # Eliminar todos los datos de la fila "0002" en la tabla "shows"
-delete_all("shows", "0002")
+#delete_all("shows", "0002")
 
-scan("movies")
-scan("shows")
+#truncate("movies")
+
+#scan("movies")
