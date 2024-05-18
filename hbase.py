@@ -5,7 +5,20 @@ from utils import *
 
 # Métodos DDL
 def create_table(table_name, column_families):
-    pass
+    if table_exists(table_name):
+        print(f"Table '{table_name}' already exists")
+        return
+    
+    initial_rows = [
+        {
+            "rowkey": "0001",
+            **{family: {} for family in column_families}
+        }
+    ]
+    
+    save_file_data(table_name, initial_rows)
+    print(f"Table '{table_name}' created successfully")
+
 
 def list_tables():
     pass
@@ -76,6 +89,9 @@ def put(table_name, row_key, column_family, column_qualifier, value, timestamp=N
         timestamp = int(time.time() * 1000)  # Generar un timestamp en milisegundos
 
     table_data = get_file_data(table_name)
+
+    if row_key is None:  # Si no se proporciona un row_key, se genera uno nuevo
+        row_key = f"{len(table_data) + 1:04d}"
 
     row_exists = False
     for row in table_data:

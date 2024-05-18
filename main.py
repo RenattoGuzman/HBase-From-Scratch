@@ -45,14 +45,14 @@ from hbase import *
 # count("shows")
 
 ## SCAN
-# scan("shows")
+#scan("movies")
 
 ## DROP TABLE
 #drop_table("movies")
 # DROP ALL
 #drop_all_tables()
 
-#describe_table("movies")
+describe_table("my_new_table")
 
 table = "movies"
 row_key = "0001"
@@ -60,4 +60,15 @@ family = "Cast"
 qualifier = "Extras"
 value = "Renatto Guzman"
 
-put(table, row_key, family, qualifier, value)
+#column_families = ["Details", "Cast", "Metadata"]
+
+#Crear tabla 
+#create_table("my_new_table", column_families)
+
+#put(table, row_key, family, qualifier, value)
+
+
+# Inserta/actualiza datos en la tabla
+#put(table, "0001", "Cast", "Extras", "Renatto Guzman")
+#put(table, None, "Details", "Title", "New Show")
+
