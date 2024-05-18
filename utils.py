@@ -18,7 +18,6 @@ def delete_table_file(table_name):
 
 def get_all_tables():
     return [f.split(".")[0] for f in os.listdir("data") if f.endswith(".json")]
-import json
 
 def save_file_data(table_name, table_data):
     file_path = f"data/{table_name}.json"

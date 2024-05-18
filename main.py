@@ -62,12 +62,28 @@ value = "Renatto Guzman"
 column_families = ["Details", "Cast", "Metadata"]
 
 #Crear tabla 
-create_table("new", column_families)
+#create_table("new", column_families)
 
 #put(table, row_key, family, qualifier, value)
 
+scan("movies")
+scan("shows")
 
 # Inserta/actualiza datos en la tabla
 #put(table, "0001", "Cast", "Extras", "Renatto Guzman")
 #put(table, None, "Details", "Title", "New Show")
 
+# Eliminar el actor "Morgan Freeman" de la fila "0001" en la tabla "movies"
+#delete("movies", "0001", "Cast", "Actor", "Timestamp2")
+
+# Eliminar la calificación (rating) de la fila "0002" en la tabla "shows"
+#delete("shows", "0002", "Metadata", "Rating")
+
+# Eliminar todos los datos de la fila "0001" en la tabla "movies"
+delete_all("movies", "0001")
+
+# Eliminar todos los datos de la fila "0002" en la tabla "shows"
+delete_all("shows", "0002")
+
+scan("movies")
+scan("shows")

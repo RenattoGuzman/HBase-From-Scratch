@@ -1,64 +1,42 @@
 [
-  {
-    "rowkey": "0001",
-    "Details": {
-      "Title": {
-        "Timestamp1": "The Shawshank Redemption"
+    {
+      "rowkey": "0001",
+      "Details": {
+        "Title": {"Timestamp1": "The Shawshank Redemption"},
+        "Year": {"Timestamp1": "1994"},
+        "Director": {"Timestamp1": "Frank Darabont"}
       },
-      "Year": {
-        "Timestamp1": "1994"
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Tim Robbins",
+          "Timestamp2": "Morgan Freeman"
+        }
       },
-      "Director": {
-        "Timestamp1": "Frank Darabont"
+      "Metadata": {
+        "Genre": {"Timestamp1": "Drama"},
+        "Rating": {"Timestamp1": "9.3"}
       }
     },
-    "Cast": {
-      "Actor": {
-        "Timestamp1": "Tim Robbins",
-        "Timestamp2": "Morgan Freeman"
+    {
+      "rowkey": "0002",
+      "Details": {
+        "Title": {"Timestamp1": "The Godfather"},
+        "Year": {"Timestamp1": "1972"},
+        "Director": {"Timestamp1": "Francis Ford Coppola"}
       },
-      "Extras": {
-        "Timestamp1716002795862": "Renatto Guzman",
-        "Timestamp1716008464054": "Renatto Guzman"
-      }
-    },
-    "Metadata": {
-      "Genre": {
-        "Timestamp1": "Drama"
+      "Cast": {
+        "Actor": {
+          "Timestamp1": "Marlon Brando",
+          "Timestamp2": "Al Pacino",
+          "Timestamp3": "James Caan"
+        }
       },
-      "Rating": {
-        "Timestamp1": "9.3"
+      "Metadata": {
+        "Genre": {
+          "Timestamp1": "Crime",
+          "Timestamp2": "Drama"
+        },
+        "Rating": {"Timestamp1": "9.2"}
       }
     }
-  },
-  {
-    "rowkey": "0002",
-    "Details": {
-      "Title": {
-        "Timestamp1": "The Godfather"
-      },
-      "Year": {
-        "Timestamp1": "1972"
-      },
-      "Director": {
-        "Timestamp1": "Francis Ford Coppola"
-      }
-    },
-    "Cast": {
-      "Actor": {
-        "Timestamp1": "Marlon Brando",
-        "Timestamp2": "Al Pacino",
-        "Timestamp3": "James Caan"
-      }
-    },
-    "Metadata": {
-      "Genre": {
-        "Timestamp1": "Crime",
-        "Timestamp2": "Drama"
-      },
-      "Rating": {
-        "Timestamp1": "9.2"
-      }
-    }
-  }
-]
+  ]

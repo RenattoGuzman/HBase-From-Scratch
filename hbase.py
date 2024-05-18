@@ -146,10 +146,44 @@ def scan(table_name):
                             print(f" {rowkey}    Column:{column_family}:{column_qualifier}:{timestamp}, {value}")
 
 def delete(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist.")
+        return
+    table_data = get_file_data(table_name)
+
+    row = next((r for r in table_data if r["rowkey"] == row_key), None)
+    if not row:
+        print(f"Row '{row_key}' not found in table '{table_name}'")
+        return
+    if not column_family:
+        table_data["data"].remove(row)
+    elif column_family in row:
+        if not column_qualifier:
+            del row[column_family]
+        elif column_qualifier in row[column_family]:
+            if not timestamp:
+                del row[column_family][column_qualifier]
+            elif timestamp in row[column_family][column_qualifier]:
+                del row[column_family][column_qualifier][timestamp]
+
+    save_file_data(table_name, table_data)
+    print(f"Deleted data from table '{table_name}', row '{row_key}'")
 
 def delete_all(table_name, row_key):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    table_data = get_file_data(table_name)
+
+    row = next((r for r in table_data if r["rowkey"] == row_key), None)
+    if not row:
+        print(f"Row '{row_key}' not found in table '{table_name}'")
+        return
+
+    table_data.remove(row)
+    save_file_data(table_name, table_data)
+    print(f"Deleted all data from table '{table_name}', row '{row_key}'")
 
 def count(table_name):
     if not table_exists(table_name):
