@@ -18,6 +18,24 @@ def create(table_name, column_families):
     
     save_file_data(table_name, initial_rows)
     print(f"Table '{table_name}' created successfully")
+    
+    status_file_path = "data/disable_table_status.json"
+    
+    # Verificar si el archivo de estado existe y cargar su contenido, o crear uno nuevo
+    if os.path.exists(status_file_path):
+        with open(status_file_path, "r") as status_file:
+            table_status = json.load(status_file)
+    else:
+        table_status = {}
+    
+    # Añadir la nueva tabla con el estado `False`
+    table_status[table_name] = False
+    
+    # Guardar el archivo de estado actualizado
+    with open(status_file_path, "w") as status_file:
+        json.dump(table_status, status_file, indent=2)
+    
+    print(f"Table '{table_name}' status added to '{status_file_path}'")
 
 
 def list():
@@ -41,8 +59,30 @@ def list():
     elapsed_time = end_time - start_time
     print(f"{len(tables)} row(s) in {elapsed_time:.10f} seconds")
 
-def disable_table(table_name):
-    pass
+def disable(table_name):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+    
+    status_file_path = "data/disable_table_status.json"
+    
+    if not os.path.exists(status_file_path):
+        print(f"No status file found. Table '{table_name}' might already be disabled.")
+        return
+    
+    with open(status_file_path, "r") as status_file:
+        table_status = json.load(status_file)
+    
+    if table_status.get(table_name) is True:
+        print(f"Table '{table_name}' is already disabled")
+        return
+    
+    table_status[table_name] = True
+    
+    with open(status_file_path, "w") as status_file:
+        json.dump(table_status, status_file, indent=2)
+    
+    print(f"Table '{table_name}' has been disabled")
 
 def is_table_enabled(table_name):
     
@@ -57,7 +97,26 @@ def drop_table(table_name):
         print(f"Table '{table_name}' does not exist")
         return
     
+    status_file_path = "data/disable_table_status.json"
+    
+    if not os.path.exists(status_file_path):
+        print(f"No status file found. Cannot drop table '{table_name}'.")
+        return
+    
+    with open(status_file_path, "r") as status_file:
+        table_status = json.load(status_file)
+    
+    if table_status.get(table_name) != True:
+        print(f"Table '{table_name}' must be disabled before it can be dropped.")
+        return
+    
     delete_table_file(table_name)
+    
+    # Remove the table status from the status file
+    table_status.pop(table_name, None)
+    with open(status_file_path, "w") as status_file:
+        json.dump(table_status, status_file, indent=2)
+    
     print(f"Table '{table_name}' has been dropped")
 
 def drop_all_tables():
@@ -65,9 +124,30 @@ def drop_all_tables():
     if not tables:
         print("No tables found.")
         return
+    
+    status_file_path = "data/disable_table_status.json"
+    
+    if not os.path.exists(status_file_path):
+        print("No status file found. Cannot drop tables.")
+        return
+    
+    with open(status_file_path, "r") as status_file:
+        table_status = json.load(status_file)
+    
     for table in tables:
+        if table_status.get(table) != True:
+            print(f"Table '{table}' must be disabled before it can be dropped. Skipping.")
+            continue
+        
         delete_table_file(table)
-    print("All tables have been dropped.")
+        table_status.pop(table, None)
+        print(f"Table '{table}' has been dropped")
+    
+    # Update the status file after dropping the tables
+    with open(status_file_path, "w") as status_file:
+        json.dump(table_status, status_file, indent=2)
+
+    print("All eligible tables have been dropped.")
 
 def describe_table(table_name):
     if not table_exists(table_name):

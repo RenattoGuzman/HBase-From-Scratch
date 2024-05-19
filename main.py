@@ -41,23 +41,28 @@ import pandas as pd
 
 from hbase import * 
 
-#Crear tabla 
-#column_families = ["Details", "Cast", "Metadata"]
-#create("new", column_families)
+# Crear tabla 
+# column_families = ["Details", "Cast", "Metadata"]
+# create("new2", column_families)
 
-#Listar tablas
-#list()
+# Listar tablas
+# list()
+
+# Desactivar tablas
+# disable('new')
+
+
 
 ## COUNT
 # count("shows")
 
 ## SCAN
-#scan("movies")
+# scan("movies")
 
 ## DROP TABLE
-#drop_table("movies")
+# drop_table("movies")
 # DROP ALL
-#drop_all_tables()
+# drop_all_tables()
 
 
 table = "movies"
