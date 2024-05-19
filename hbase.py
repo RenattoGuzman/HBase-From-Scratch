@@ -85,7 +85,7 @@ def disable(table_name):
     print(f"Table '{table_name}' has been disabled")
 
 
-def enable(table_name):
+def enabled(table_name):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
         return
@@ -110,10 +110,24 @@ def enable(table_name):
     
     print(f"Table '{table_name}' has been enabled")
 
-def is_table_enabled(table_name):
+def is_enabled(table_name):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return False
     
-    # necesito que retorne True o False, gracias :)
-    pass
+    status_file_path = "data/disable_table_status.json"
+    
+    if not os.path.exists(status_file_path):
+        # If the status file does not exist, assume all tables are enabled
+        return True
+    
+    with open(status_file_path, "r") as status_file:
+        table_status = json.load(status_file)
+    
+    # Return the negation of the disabled status, default to True if not found
+    enabled = not table_status.get(table_name, False)
+    print(f"Table '{table_name}' enabled status: {enabled}")
+    return enabled
 
 def alter_table(table_name, new_column_families):
     pass
