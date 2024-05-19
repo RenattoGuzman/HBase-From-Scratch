@@ -22,7 +22,7 @@ colors = {
 
 fun_dict = {
     "create": create,
-    "list": list,
+    "list_table": list_table,
     "disable": disable,
     "enable": enable,
     "is_enabled": is_table_enabled,

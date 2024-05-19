@@ -38,7 +38,7 @@ def create(table_name, column_families):
     print(f"Table '{table_name}' status added to '{status_file_path}'")
 
 
-def list():
+def list_table():
     start_time = time.time()
     
     directory = "data/"
@@ -83,6 +83,32 @@ def disable(table_name):
         json.dump(table_status, status_file, indent=2)
     
     print(f"Table '{table_name}' has been disabled")
+
+
+def enable(table_name):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+    
+    status_file_path = "data/disable_table_status.json"
+    
+    if not os.path.exists(status_file_path):
+        print(f"No status file found. Table '{table_name}' might already be enabled.")
+        return
+    
+    with open(status_file_path, "r") as status_file:
+        table_status = json.load(status_file)
+    
+    if table_status.get(table_name) is False:
+        print(f"Table '{table_name}' is already enabled")
+        return
+    
+    table_status[table_name] = False
+    
+    with open(status_file_path, "w") as status_file:
+        json.dump(table_status, status_file, indent=2)
+    
+    print(f"Table '{table_name}' has been enabled")
 
 def is_table_enabled(table_name):
     

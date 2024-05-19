@@ -46,7 +46,7 @@ from hbase import *
 # create("new2", column_families)
 
 # Listar tablas
-# list()
+# list_table()
 
 # Desactivar tablas
 # disable('new')
