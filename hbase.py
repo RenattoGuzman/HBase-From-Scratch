@@ -1,10 +1,10 @@
 
 import time
 from utils import *
-
+from colorama import Fore, Style, init
 
 # Métodos DDL
-def create_table(table_name, column_families):
+def create(table_name, column_families):
     if table_exists(table_name):
         print(f"Table '{table_name}' already exists")
         return
@@ -20,8 +20,26 @@ def create_table(table_name, column_families):
     print(f"Table '{table_name}' created successfully")
 
 
-def list_tables():
-    pass
+def list():
+    start_time = time.time()
+    
+    directory = "data/"
+    if not os.path.exists(directory):
+        print("No tables found.")
+        return
+
+    tables = [f.replace('.json', '') for f in os.listdir(directory) if f.endswith('.json')]
+    
+    print(Fore.RED + "TABLE" + Style.RESET_ALL)
+    if not tables:
+        print("No tables found.")
+    else:
+        for table in tables:
+            print(f'- {table}')
+    
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"{len(tables)} row(s) in {elapsed_time:.10f} seconds")
 
 def disable_table(table_name):
     pass

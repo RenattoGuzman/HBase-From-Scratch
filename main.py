@@ -41,6 +41,13 @@ import pandas as pd
 
 from hbase import * 
 
+#Crear tabla 
+#column_families = ["Details", "Cast", "Metadata"]
+#create("new", column_families)
+
+#Listar tablas
+#list()
+
 ## COUNT
 # count("shows")
 
@@ -59,17 +66,15 @@ family = "Cast"
 qualifier = "Actor"
 value = "Renatto Guzman"
 
-column_families = ["Details", "Cast", "Metadata"]
 
-#Crear tabla 
-#create_table("new", column_families)
 
 #put(table, row_key, family, qualifier, value)
 
 #scan("movies")
 #scan("shows")
 
-get(table, row_key, family, qualifier)
+#get(table, row_key, family, qualifier)
+
 
 # Inserta/actualiza datos en la tabla
 #put(table, "0001", "Cast", "Extras", "Renatto Guzman")
