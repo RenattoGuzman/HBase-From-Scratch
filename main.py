@@ -56,7 +56,7 @@ from hbase import *
 table = "movies"
 row_key = "0001"
 family = "Cast"
-qualifier = "Extras"
+qualifier = "Actor"
 value = "Renatto Guzman"
 
 column_families = ["Details", "Cast", "Metadata"]
@@ -66,8 +66,10 @@ column_families = ["Details", "Cast", "Metadata"]
 
 #put(table, row_key, family, qualifier, value)
 
-scan("movies")
-scan("shows")
+#scan("movies")
+#scan("shows")
+
+get(table, row_key, family, qualifier)
 
 # Inserta/actualiza datos en la tabla
 #put(table, "0001", "Cast", "Extras", "Renatto Guzman")

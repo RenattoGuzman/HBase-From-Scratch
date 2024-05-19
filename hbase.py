@@ -120,7 +120,59 @@ def put(table_name, row_key, column_family, column_qualifier, value, timestamp=N
 
 
 def get(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    table_data = get_file_data(table_name)
+
+    row_found = False
+    for row in table_data:
+        if row['rowkey'] == row_key:
+            row_found = True
+            if column_family is None:
+                # Print the entire row
+                print(f"\nRow '{row_key}' in table '{table_name}':")
+                for family, data in row.items():
+                    if family != 'rowkey':
+                        for qualifier, values in data.items():
+                            if isinstance(values, dict):
+                                print(f"  Column:{family}:{qualifier}, {values}")
+                            else:
+                                for ts, value in values.items():
+                                    print(f"  Column:{family}:{qualifier}:{ts}, {value}")
+            elif column_family in row:
+                if column_qualifier is None:
+                    # Print the entire column family
+                    print(f"\nColumn family '{column_family}' in row '{row_key}', table '{table_name}':")
+                    for qualifier, values in row[column_family].items():
+                        if isinstance(values, dict):
+                            print(f"  Column:{column_family}:{qualifier}, {values}")
+                        else:
+                            for ts, value in values.items():
+                                print(f"  Column:{column_family}:{qualifier}:{ts}, {value}")
+                elif column_qualifier in row[column_family]:
+                    if timestamp is None:
+                        # Print all values for the column qualifier
+                        print(f"\nColumn qualifier '{column_qualifier}' in row '{row_key}', column family '{column_family}', table '{table_name}':")
+                        for ts, value in row[column_family][column_qualifier].items():
+                            print(f"  {ts}, {value}")
+                    else:
+                        timestamp_str = f"Timestamp{timestamp}"
+                        if timestamp_str in row[column_family][column_qualifier]:
+                            # Print the value for the specified timestamp
+                            value = row[column_family][column_qualifier][timestamp_str]
+                            print(f"\nValue for row '{row_key}', column '{column_family}:{column_qualifier}', timestamp '{timestamp}' in table '{table_name}':")
+                            print(f"  {value}")
+                        else:
+                            print(f"Timestamp '{timestamp}' not found for row '{row_key}', column '{column_family}:{column_qualifier}' in table '{table_name}'")
+                else:
+                    print(f"Column qualifier '{column_qualifier}' not found in row '{row_key}', column family '{column_family}' in table '{table_name}'")
+            else:
+                print(f"Column family '{column_family}' not found in row '{row_key}' in table '{table_name}'")
+
+    if not row_found:
+        print(f"Row '{row_key}' not found in table '{table_name}'")
 
 def scan(table_name):
     
