@@ -1,5 +1,7 @@
 #  HBase From Scratch in Python
-##  Proyecto 3 | Base de Datos 2
-##  Universidad del Valle de Guatemala
-
 ## Creado por Xavier Alvarado, Mario Guerra y Renatto Guzmán
+<center>
+<img src="pics/scan.png" width=500 alt="GUI con funcion scan">
+</center>
+
+##  Proyecto 3 | Base de Datos 2
