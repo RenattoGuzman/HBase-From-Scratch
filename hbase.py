@@ -1,7 +1,8 @@
-
 import time
 from utils import *
 from colorama import Fore, Style, init
+import os
+import json
 
 # Métodos DDL
 def create(table_name, column_families):
@@ -404,3 +405,19 @@ def truncate(table_name):
 
     save_file_data(table_name, truncated_table_data)
     print(f"Table '{table_name}' has been truncated")
+
+def update_many(table_name, updates):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    table_data = get_file_data(table_name)
+    for update in updates:
+        row_key = update['rowkey']
+        for column_family, column_data in update.items():
+            if column_family != 'rowkey':
+                for column_qualifier, value in column_data.items():
+                    timestamp = int(time.time() * 1000)  # Generar un timestamp en milisegundos
+                    put(table_name, row_key, column_family, column_qualifier, value, timestamp)
+
+    print(f"Updated {len(updates)} rows in table '{table_name}'")

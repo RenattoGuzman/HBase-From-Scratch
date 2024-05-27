@@ -37,6 +37,7 @@ fun_dict = {
     "scan": scan,
     "count": count,
     "truncate": truncate,
+    "update_many": update_many,
     # Para agregar una funcion solamente se agrega el nombre de la funcion y el nombre del comando
 }
 list_of_commands = list(fun_dict.keys())

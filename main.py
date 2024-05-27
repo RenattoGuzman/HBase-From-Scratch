@@ -75,7 +75,7 @@ value = "Renatto Guzman"
 
 #put(table, row_key, family, qualifier, value)
 
-#scan("movies")
+scan("movies")
 #scan("shows")
 
 #get(table, row_key, family, qualifier)
@@ -100,3 +100,38 @@ value = "Renatto Guzman"
 #truncate("movies")
 
 #scan("movies")
+
+"""
+updates = [
+    {
+        "rowkey": "0001",
+        "Details": {
+            "Title": {
+                "Timestamp1720000000000": "The Shawshank Redemption - Updated"
+            }
+        },
+        "Cast": {
+            "Actor": {
+                "Timestamp1720000000000": "Updated Actor"
+            }
+        }
+    },
+    {
+        "rowkey": "0002",
+        "Details": {
+            "Director": {
+                "Timestamp1720000000000": "Francis Ford Coppola - Updated"
+            }
+        },
+        "Metadata": {
+            "Rating": {
+                "Timestamp1720000000000": "9.5"
+            }
+        }
+    }
+]
+
+update_many("movies", updates)
+
+scan("movies")
+"""

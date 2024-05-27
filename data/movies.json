@@ -3,7 +3,10 @@
     "rowkey": "0001",
     "Details": {
       "Title": {
-        "Timestamp1516027232851": "The Shawshank Redemption"
+        "Timestamp1516027232851": "The Shawshank Redemption",
+        "Timestamp1716786987015": {
+          "Timestamp1720000000000": "The Shawshank Redemption - Updated"
+        }
       },
       "Year": {
         "Timestamp1516027232851": "1994"
@@ -15,7 +18,10 @@
     "Cast": {
       "Actor": {
         "Timestamp1516027232851": "Tim Robbins",
-        "Timestamp1616054221851": "Morgan Freeman"
+        "Timestamp1616054221851": "Morgan Freeman",
+        "Timestamp1716786987017": {
+          "Timestamp1720000000000": "Updated Actor"
+        }
       },
       "Extras": {
         "Timestamp1716002795862": "Renatto Guzman"
@@ -40,7 +46,10 @@
         "Timestamp1516027232851": "1972"
       },
       "Director": {
-        "Timestamp1516027232851": "Francis Ford Coppola"
+        "Timestamp1516027232851": "Francis Ford Coppola",
+        "Timestamp1716786987137": {
+          "Timestamp1720000000000": "Francis Ford Coppola - Updated"
+        }
       }
     },
     "Cast": {
@@ -56,7 +65,10 @@
         "Timestamp1616054221851": "Drama"
       },
       "Rating": {
-        "Timestamp1516027232851": "9.2"
+        "Timestamp1516027232851": "9.2",
+        "Timestamp1716786987154": {
+          "Timestamp1720000000000": "9.5"
+        }
       }
     }
   }
