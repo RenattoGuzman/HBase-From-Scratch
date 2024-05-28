@@ -62,7 +62,14 @@ def execute_command():
         sys.stdout = captured_output  # Redirect stdout to the StringIO object
 
         try:
-            fun_dict[command](*args)
+            if command == "alter":
+                if len(args) < 2:
+                    raise TypeError("Invalid arguments")
+                table_name = args[0]
+                new_column_families = args[1:]
+                fun_dict[command](table_name, new_column_families)
+            else:
+                fun_dict[command](*args)
         except TypeError:
             output_text.insert(tk.END, f"Invalid arguments, type '{command}?' for more information\n")
 

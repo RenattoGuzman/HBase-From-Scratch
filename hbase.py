@@ -131,7 +131,20 @@ def is_enabled(table_name):
     return enabled
 
 def alter_table(table_name, new_column_families):
-    pass
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    table_data = get_file_data(table_name)
+    
+    # Check if the new column families already exist and add them if not
+    for row in table_data:
+        for family in new_column_families:
+            if family not in row:
+                row[family] = {}
+    
+    save_file_data(table_name, table_data)
+    print(f"Table '{table_name}' altered successfully with new column families: {new_column_families}")
 
 def drop_table(table_name):
     if not table_exists(table_name):
