@@ -5,3 +5,5 @@
 </center>
 
 ##  Proyecto 3 | Base de Datos 2
+
+## Link al video en YT: [Hbase From Scratch](https://youtu.be/sz-cP2uZfaw)
