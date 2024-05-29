@@ -434,3 +434,39 @@ def update_many(table_name, updates):
                     put(table_name, row_key, column_family, column_qualifier, value, timestamp)
 
     print(f"Updated {len(updates)} rows in table '{table_name}'")
+
+def update_index(table_name, column_family, column_qualifier, value, row_key):
+    index_file_path = f"data/index_{table_name}_{column_family}_{column_qualifier}.json"
+    
+    if os.path.exists(index_file_path):
+        with open(index_file_path, "r") as index_file:
+            index_data = json.load(index_file)
+    else:
+        index_data = {}
+    
+    if value not in index_data:
+        index_data[value] = []
+    
+    if row_key not in index_data[value]:
+        index_data[value].append(row_key)
+    
+    with open(index_file_path, "w") as index_file:
+        json.dump(index_data, index_file, indent=2)
+
+
+def search_by_index(table_name, column_family, column_qualifier, value):
+    index_file_path = f"data/{table_name}.json"
+    
+    if not os.path.exists(index_file_path):
+        print(f"No index found for {column_family}:{column_qualifier} in table '{table_name}'")
+        return []
+    
+    with open(index_file_path, "r") as index_file:
+        index_data = json.load(index_file)
+    
+    if value in index_data:
+        row_keys = index_data[value]
+        return row_keys
+    else:
+        return []
+    

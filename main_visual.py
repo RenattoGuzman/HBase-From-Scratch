@@ -38,6 +38,7 @@ fun_dict = {
     "count": count,
     "truncate": truncate,
     "update_many": update_many,
+    "search": search_by_index,
     # Para agregar una funcion solamente se agrega el nombre de la funcion y el nombre del comando
 }
 list_of_commands = list(fun_dict.keys())
@@ -68,6 +69,12 @@ def execute_command():
                 table_name = args[0]
                 new_column_families = args[1:]
                 fun_dict[command](table_name, new_column_families)
+            elif command == "search":
+                if len(args) != 4:
+                    raise TypeError("Invalid arguments")
+                table_name, column_family, column_qualifier, value = args
+                result_row_keys = fun_dict[command](table_name, column_family, column_qualifier, value)
+                print(f"Rows with {column_family}:{column_qualifier}='{value}': {result_row_keys}")
             else:
                 fun_dict[command](*args)
         except TypeError:
