@@ -1,0 +1,55 @@
+list_table
+create prueba1 
+create prueba1 CF1
+list_table
+create prueba2 CF1 CF2 CF3
+describe_table prueba2
+list_table
+put prueba2 0001 CF1 CQ1 valor1
+put prueba2 0001 CF2 CQ2 valor2
+put prueba2 0001 CF3 CQ3 valor3
+put prueba2 0001 CF2 CQ2 nuevo_valor1
+put prueba2 0001 CF2 CQ2 nuevo_valor2
+put prueba2 0001 CF2 CQ2 nuevo_valor3
+get prueba2 0001 CF2 CQ2
+is_enabled prueba2
+disable prueba2
+put prueba2 XASXS dSXSA OCHOA CQ
+is_enabled prueba2
+disable prueba2
+enabled prueba2
+enabled prueba2
+put prueba2 0002 CF1 CQ1 valor5
+put prueba1 0001 CF1 CQ1 valor1
+get prueba2 0001
+get prueba2 0001 CF1
+get prueba2 0001 CF1 CQ1
+get prueba2 0001 CF3 CQ3 1717047936412
+scan prueba2
+scan tabla_grande
+alter_table prueba2 CF4
+alter_table prueba2 CF4
+disable prueba2
+alter_table prueba2 
+enabled prueba2
+alter_table prueba2 
+count prueba2
+count tabla_grande
+truncate shows
+disable movies
+truncate movies
+delete_all prueba1 0001
+disable prueba2
+delete_all prueba2 0002
+enabled prueba2
+delete_all prueba2 0001
+delete_all prueba2 0002
+put prueba2 0001 CF1 CQ1 valor1
+put prueba2 0001 CF2 CQ2 valor2
+put prueba2 0001 CF3 CQ3 valor3
+disable prueba2
+delete_all prueba2 0001
+enabled prueba2
+drop_table movies
+drop_table prueba2
+drop_all_tables

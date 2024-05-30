@@ -43,76 +43,61 @@ from hbase import *
 
 # Presentación de H-Base From Scratch
 
-# Listar tablas
+# 1. Listar tablas
 # list_table()
 
-# Crear tabla sin column_families
-"""""
+# 2. Crear tabla sin column_families
 
-column_families = []
-create("prueba1", column_families)
+#column_families = []
+# create("prueba1", column_families)
 
-"""""
+# 3. Crear tabla con una column_family
 
-# Crear tabla con una column_family
+#column_families = ["CF1"]
+# create("prueba1", column_families)
 
-"""""
-column_families = ["CF1"]
-create("prueba1", column_families)
-"""""
-
-# Listar tablas
+# 4. Listar tablas
 # list_table()
 
-# Crear tabla con tres column_family
-"""""
-column_families = ["CF1", "CF2", "CF3"]
-create("prueba2", column_families)
-"""""
+# 5. Crear tabla con tres column_family
 
-# Describe prueba2
+# column_families = ["CF1", "CF2", "CF3"]
+# create("prueba2", column_families)
+
+# 6. Describe prueba2
 # describe_table("prueba2")
 
-#Listar tablas
-#list_table()
+# 7. Listar tablas
+# list_table()
 
+# 8. Insertar un registro a CF1, CF2, CF3
 
-# Insertar un registro a CF1,CF2,CF3
+# put("prueba2", "0001", "CF1", "CQ1", "valor1")
+# put("prueba2", "0001", "CF2", "CQ2", "valor2")
+# put("prueba2", "0001", "CF3", "CQ3", "valor3")
 
-"""""
-table = "prueba2"
-row_key = "0001"
-family = ["CF1","CF2","CF3"]
-qualifier = "abc"
-value = "CQ"
+# 9. Actualizar Celda CF2
 
-put(table, row_key, family, qualifier, value)
+# put("prueba2", "0001", "CF2", "CQ2", "nuevo_valor1")
 
-"""""
+# 10. Actualizar la celda de "prueba2" CF2 otra vez
 
-# Actualizar Celda CF2
+# put("prueba2", "0001", "CF2", "CQ2", "nuevo_valor2")
 
-"""""
-table = "prueba2"
-row_key = "0001"
-family = "CF3"
-qualifier = "abc"
-value = "MarioGM54"
+# 11. Actualizar la celda de "prueba2" CF2 otra vez
 
+# put("prueba2", "0001", "CF2", "CQ2", "nuevo_valor3")
 
-put(table, row_key, family, qualifier, value)
+# 12. Mostrar los cambios en el archivo de la tabla, con las 3 versiones de la celda
+# get("prueba2", "0001", "CF2", "CQ2")
 
-"""""
+# 13. Revisar is enable prueba2
+# is_enabled("prueba2")
 
-# Revisar is enable prueba2
-#is_enabled("prueba2")
+# 14. Desactivar tabla 2
+# disable('prueba2')
 
-
-# Desactivar tabla 2
-#disable('prueba2')
-
-
-# Insertar solo un valor CQ (NO DEBE PERMITIR)
+# 15. Insertar solo un valor CQ (NO DEBE PERMITIR)
 
 """""
 table = "prueba2"
@@ -120,53 +105,32 @@ row_key = "XASXS"
 family = "dSXSA"
 qualifier = "OCHOA"
 value = "CQ"
-"""""
-
-#put(table, row_key, family, qualifier, value)
-
-# Revisar is disabled
-
-#is_enabled("prueba2")
-
-# Deshabilitar "prueba2" 
-#disable("prueba2")
-
-
-
-# Habilitar "prueba2"
-#enabled("prueba2")
-
-# Habilitar "prueba2" (indicar que ya esta habilitada)
-#enabled("prueba2")
-
-
-# Insertar un registro en "prueba2" con un valor en un CQ unicamente
-""""
-table = "prueba2"
-row_key = "00002"
-family = "Nose"
-qualifier = "Hola"
-value = ""
 
 put(table, row_key, family, qualifier, value)
-
 """""
 
-#Insertar un registro en "prueba1" con un valor en un CQ unicamente
+# 16. Revisar is disabled
 
-"""""
-table = "prueba1"
-row_key = "00002"
-family = "Nose"
-qualifier = "Hola"
-value = ""
+# is_enabled("prueba2")
 
+# 17. Deshabilitar "prueba2" 
+# disable("prueba2")
 
-put(table, row_key, family, qualifier, value)
+# 18. Habilitar "prueba2"
+# enabled("prueba2")
 
-"""""
+# 19. Habilitar "prueba2" (indicar que ya esta habilitada)
+# enabled("prueba2")
 
-# Obtener primer registro de "prueba2" sin especificar CF ni CQ en formato legible
+# 20. Insertar un registro en "prueba2" con un valor en un CQ unicamente
+
+# put("prueba2", "0002", "CF1", "CQ1", "valor5")
+
+# 21. Insertar un registro en "prueba1" con un valor en un CQ unicamente
+
+# put("prueba1", "0001", "CF1", "CQ1", "valor1")
+
+# 22. Obtener primer registro de "prueba2" sin especificar CF ni CQ en formato legible
 
 """""
 table = "prueba2"
@@ -178,8 +142,7 @@ timestamp = ""
 get(table, row_key, family, qualifier, timestamp)
 """""
 
-# Obtener primer registro de "prueba2" con CF especificado en formato legible
-
+# 23. Obtener primer registro de "prueba2" con CF especificado en formato legible
 """""
 table = "prueba2"
 row_key = "0001"
@@ -190,34 +153,108 @@ timestamp = ""
 get(table, row_key, family, qualifier, timestamp)
 """""
 
-
-# Obtener primer registro de "prueba2" con CF:CQ especificados en formato legible
-
-
+# 24. Obtener primer registro de "prueba2" con CF:CQ especificados en formato legible
+"""""
 table = "prueba2"
 row_key = "0001"
 family = "CF1"
-qualifier = "abc"
+qualifier = "CQ1"
 timestamp = ""
 
-
 get(table, row_key, family, qualifier, timestamp)
+"""""
 
-
-# Obtener primer registro de "prueba2" con CF:CQ y version especificados en formato legible
-
-
+# 25. Obtener primer registro de "prueba2" con CF:CQ y version especificados en formato legible
 """""
 table = "prueba2"
 row_key = "0001"
 family = "CF3"
-qualifier = "abc"
-timestamp = "Timestamp1717041518593"
+qualifier = "CQ3"
+timestamp = "Timestamp1717047936412"
 
 get(table, row_key, family, qualifier)
 """""
 
+# 26. Scan de "prueba2" en formato legible
+# scan("prueba2")
 
+# 27. Scan de tabla grande en formato legible
+# scan("tabla_grande")
+
+# 28. Alter "prueba2" agregar CF4
+# alter_table("prueba2", ["CF4"])
+
+# 29. Alter "prueba2" modificar CF4
+
+# alter_table("prueba2", ["CF4"])
+
+# 30. Deshabilitar "prueba2"
+# disable("prueba2")
+
+# 31. Alter "prueba2" eliminar CF4
+# alter_table("prueba2", [])
+
+# 32. Habilitar "prueba2"
+# enabled("prueba2")
+
+# 33. Alter "prueba2" eliminar CF4
+# alter_table("prueba2", [])
+
+# 34. Count "prueba2"
+# count("prueba2")
+
+# 35. Count de tabla grande
+# count("tabla_grande")
+
+# 36. Truncate a una de las tablas pequeñas precargadas
+# truncate("shows")
+
+# 37. Deshabilitar la otra tabla pequeña precargada
+# disable("movies")
+
+# 38. Truncate de la tabla pequeña deshabilitada
+# truncate("movies")
+
+# 39. Delete del registro de "prueba1"
+# delete_all("prueba1", "0001")
+
+# 40. Deshabilitar "prueba2"
+# disable("prueba2")
+
+# 41. Delete del segundo registro de "prueba2"
+# delete_all("prueba2", "0002")
+
+# 42. Habilitar "prueba2"
+# enabled("prueba2")
+
+# 43. Delete all "prueba2"
+# delete_all("prueba2", "0001")
+# delete_all("prueba2", "0002")
+
+# 44. Insertar un registro en "prueba2" con un valor de CQ en cada CF
+# put("prueba2", "0001", "CF1", "CQ1", "valor1")
+# put("prueba2", "0001", "CF2", "CQ2", "valor2")
+# put("prueba2", "0001", "CF3", "CQ3", "valor3")
+
+# 45. Deshabilitar "prueba2"
+# disable("prueba2")
+
+# 46. Delete all de "prueba2"
+# delete_all("prueba2", "0001")
+
+# 47. Habilitar "prueba2"
+# enabled("prueba2")
+
+# 48. Drop de la tabla pequeña precargada que está deshabilitada
+# drop_table("movies")
+
+# 49. Drop de "prueba2"
+# drop_table("prueba2")
+
+# 50. Drop all
+# drop_all_tables()
+
+####################################################### Otras pruebas que hicimos #######################################################
 
 ## COUNT
 # count("shows")
@@ -230,13 +267,13 @@ get(table, row_key, family, qualifier)
 # DROP ALL
 # drop_all_tables()
 
-
+"""
 table = "movies"
 row_key = "0001"
 family = "Cast"
 qualifier = "Actor"
 value = "Renatto Guzman"
-
+"""
 
 
 #put(table, row_key, family, qualifier, value)

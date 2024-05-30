@@ -138,6 +138,10 @@ def alter_table(table_name, new_column_families):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
         return
+    
+    if not is_enabled(table_name):
+        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
+        return
 
     table_data = get_file_data(table_name)
     
@@ -153,6 +157,10 @@ def alter_table(table_name, new_column_families):
 def drop_table(table_name):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
+        return
+    
+    if not is_enabled(table_name):
+        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
         return
     
     status_file_path = "data/disable_table_status.json"
@@ -414,6 +422,10 @@ def delete_all(table_name, row_key):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
         return
+    
+    if not is_enabled(table_name):
+        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
+        return
 
     table_data = get_file_data(table_name)
 
@@ -438,6 +450,10 @@ def count(table_name):
 def truncate(table_name):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
+        return
+    
+    if not is_enabled(table_name):
+        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
         return
 
     table_data = get_file_data(table_name)

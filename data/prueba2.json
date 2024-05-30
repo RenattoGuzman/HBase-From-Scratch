@@ -2,49 +2,18 @@
   {
     "rowkey": "0001",
     "CF1": {
-      "": "CQ",
-      "abc": "CQ"
+      "CQ1": {
+        "Timestamp1717050199003": "valor1"
+      }
     },
     "CF2": {
-      "": "CQ",
-      "abc": "CQ"
+      "CQ2": {
+        "Timestamp1717050199005": "valor2"
+      }
     },
     "CF3": {
-      "": "CQ",
-      "abc": {
-        "Timestamp1717041518593": "MarioGM54"
-      }
-    }
-  },
-  {
-    "rowkey": "",
-    "": {
-      "": "CQ"
-    }
-  },
-  {
-    "rowkey": "XASXS",
-    "dSXSA": {
-      "OCHOA": "CQ"
-    }
-  },
-  {
-    "rowkey": "00002",
-    "Nose": {
-      "Hola": ""
-    }
-  },
-  {
-    "rowkey": "0002",
-    "CF3": {
-      "abc": "MarioGM54"
-    }
-  },
-  {
-    "rowkey": "0003",
-    "CF3": {
-      "abc": {
-        "Timestamp1717041499898": "MarioGM54"
+      "CQ3": {
+        "Timestamp1717050199007": "valor3"
       }
     }
   }
