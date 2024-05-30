@@ -48,5 +48,72 @@
         },
         "Rating": {"Timestamp1516027232851": "9.5"}
       }
+    },
+    {
+      "rowkey": "0003",
+      "Details": {
+        "Title": {"Timestamp1516027232851": "Andor"},
+        "StartYear": {"Timestamp1516027232851": "2022"},
+        "EndYear": {"Timestamp1516027232851": "2022"},
+        "Creator": {"Timestamp1516027232851": "Tony Gilroy"}
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1516027232851": "Diego Luna"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1516027232851": "Sci-Fi",
+          "Timestamp1616054221851": "Drama"
+        },
+        "Rating": {"Timestamp1516027232851": "9.5"}
+      }
+    },
+    {
+      "rowkey": "0004",
+      "Details": {
+        "Title": {"Timestamp1516027232851": "Modern Family"},
+        "StartYear": {"Timestamp1516027232851": "2022"},
+        "EndYear": {"Timestamp1516027232851": "2022"},
+        "Creator": {"Timestamp1516027232851": "Christopher Lloyd"}     
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1516027232851": "Phil Dunphy",
+          "Timestamp1616054221851": "Claire Dunphy",
+          "Timestamp1716002795862": "Jay Pritchett"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1516027232851": "Comedy",
+          "Timestamp1616054221851": "Drama"
+        },
+        "Rating": {"Timestamp1516027232851": "9.5"}
+      }
+    },
+    {
+      "rowkey": "0005",
+      "Details": {
+        "Title": {"Timestamp1516027232851": "Stranger Things"},
+        "StartYear": {"Timestamp1516027232851": "2016"},
+        "EndYear": {"Timestamp1516027232851": "2022"},
+        "Creator": {"Timestamp1516027232851": "The Duffer Brothers"}     
+      },
+      "Cast": {
+        "Actor": {
+          "Timestamp1516027232851": "Winona Ryder",
+          "Timestamp1616054221851": "David Harbour",
+          "Timestamp1716002795862": "Finn Wolfhard"
+        }
+      },
+      "Metadata": {
+        "Genre": {
+          "Timestamp1616054221851": "Drama",
+          "Timestamp1716002795862": "Fantasy"          
+        },
+        "Rating": {"Timestamp1516027232851": "9.5"}
+      }
     }
   ]

@@ -71,5 +71,99 @@
         }
       }
     }
+  },
+  {
+    "rowkey": "0003",
+    "Details": {
+      "Title": {
+        "Timestamp1516027232851": "Star Wars Episode 4"
+      },
+      "Year": {
+        "Timestamp1516027232851": "1977"
+      },
+      "Director": {
+        "Timestamp1516027232851": "George Lucas"
+      }
+    },
+    "Cast": {
+      "Actor": {
+        "Timestamp1516027232851": "Mark Hamill",
+        "Timestamp1616054221851": "Harrison Ford"
+      }
+    },
+    "Metadata": {
+      "Genre": {
+        "Timestamp1516027232851": "Sci-Fi",
+        "Timestamp1616054221851": "Drama"
+      },
+      "Rating": {
+        "Timestamp1516027232851": "9.2",
+        "Timestamp1716786987154": {
+          "Timestamp1720000000000": "9.5"
+        }
+      }
+    }
+  },
+  {
+    "rowkey": "0004",
+    "Details": {
+      "Title": {
+        "Timestamp1516027232851": "Back to the Future"
+      },
+      "Year": {
+        "Timestamp1516027232851": "1977"
+      },
+      "Director": {
+        "Timestamp1516027232851": "Steven Spielberg"
+      }
+    },
+    "Cast": {
+      "Actor": {
+        "Timestamp1516027232851": "Michael Fox"
+      }
+    },
+    "Metadata": {
+      "Genre": {
+        "Timestamp1516027232851": "Sci-fi",
+        "Timestamp1616054221851": "Time Travel"
+      },
+      "Rating": {
+        "Timestamp1516027232851": "9.7",
+        "Timestamp1716786987154": {
+          "Timestamp1720000000000": "9.5"
+        }
+      }
+    }
+  },
+  {
+    "rowkey": "0005",
+    "Details": {
+      "Title": {
+        "Timestamp1516027232851": "Arrival"
+      },
+      "Year": {
+        "Timestamp1516027232851": "2010"
+      },
+      "Director": {
+        "Timestamp1516027232851": "gegagadoo"
+      }
+    },
+    "Cast": {
+      "Actor": {
+        "Timestamp1516027232851": "Jeremy Renner",
+        "Timestamp1616054221851": "Amy Adams"}
+    },
+    "Metadata": {
+      "Genre": {
+        "Timestamp1516027232851": "Sci-Fi",
+        "Timestamp1616054221851": "Drama"
+      },
+      "Rating": {
+        "Timestamp1516027232851": "9.2",
+        "Timestamp1716786987154": {
+          "Timestamp1720000000000": "9.5"
+        }
+      }
+    }
   }
 ]
