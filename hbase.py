@@ -6,6 +6,10 @@ import json
 
 # Métodos DDL
 def create(table_name, column_families):
+    if not column_families:
+        print("Error: No se puede crear una tabla con una lista de familias de columnas vacía")
+        return
+
     if table_exists(table_name):
         print(f"Table '{table_name}' already exists")
         return
@@ -231,45 +235,56 @@ def describe_table(table_name):
             print(f"  - {qualifier}")
 
 
-# Métodos DML
+
+
 def put(table_name, row_key, column_family, column_qualifier, value, timestamp=None):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
+        return
+
+    if not row_key or not column_family or not column_qualifier:
+        print("Error: row_key, column_family, and column_qualifier cannot be empty.")
+        return
+
+    if not is_enabled(table_name):
+        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
         return
 
     if timestamp is None:
         timestamp = int(time.time() * 1000)  # Generar un timestamp en milisegundos
 
     table_data = get_file_data(table_name)
-
-    if row_key is None:  # Si no se proporciona un row_key, se genera uno nuevo
+    if row_key is None:
+        # Si no se proporciona un row_key, se genera uno nuevo
         row_key = f"{len(table_data) + 1:04d}"
+
+    if not isinstance(column_family, list):
+        column_family = [column_family]
 
     row_exists = False
     for row in table_data:
         if row['rowkey'] == row_key:
             row_exists = True
-            if column_family not in row:
-                row[column_family] = {}
-            if column_qualifier not in row[column_family]:
-                row[column_family][column_qualifier] = {}
-            row[column_family][column_qualifier][f"Timestamp{timestamp}"] = value
+            for family in column_family:
+                if family not in row:
+                    row[family] = {}
+
+                # Actualizar el column_qualifier existente o agregar uno nuevo
+                if column_qualifier in row[family]:
+                    # Si el column_qualifier ya existe, simplemente actualiza su valor
+                    row[family][column_qualifier] = {f"Timestamp{timestamp}": value}
+                else:
+                    row[family][column_qualifier] = {f"Timestamp{timestamp}": value}
             break
 
     if not row_exists:
-        new_row = {
-            'rowkey': row_key,
-            column_family: {
-                column_qualifier: {
-                    f"Timestamp{timestamp}": value
-                }
-            }
-        }
+        new_row = {'rowkey': row_key}
+        for family in column_family:
+            new_row[family] = {column_qualifier: {f"Timestamp{timestamp}": value}}
         table_data.append(new_row)
 
     save_file_data(table_name, table_data)
-    print(f"Value '{value}' inserted/updated in table '{table_name}' at row '{row_key}', column '{column_family}:{column_qualifier}', timestamp '{timestamp}'")
-
+    print(f"Value '{value}' inserted/updated in table '{table_name}' at row '{row_key}', columns '{column_family}:{column_qualifier}', timestamp '{timestamp}'")
 
 def get(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
     if not table_exists(table_name):
@@ -277,54 +292,74 @@ def get(table_name, row_key, column_family=None, column_qualifier=None, timestam
         return
 
     table_data = get_file_data(table_name)
-
     row_found = False
+
     for row in table_data:
-        if row['rowkey'] == row_key:
+        if row.get('rowkey') == row_key:  # Usar.get() para manejar posibles errores de KeyError
             row_found = True
-            if column_family is None:
-                # Print the entire row
+
+            if column_family == "" and column_qualifier == "":
+                # Imprimir toda la fila
                 print(f"\nRow '{row_key}' in table '{table_name}':")
                 for family, data in row.items():
-                    if family != 'rowkey':
+                    if family!= 'rowkey':
+                        print(f" Column family '{family}':")
                         for qualifier, values in data.items():
                             if isinstance(values, dict):
-                                print(f"  Column:{family}:{qualifier}, {values}")
-                            else:
                                 for ts, value in values.items():
                                     print(f"  Column:{family}:{qualifier}:{ts}, {value}")
+                            else:
+                                print(f"  Column:{family}:{qualifier}, {values}")
+
             elif column_family in row:
-                if column_qualifier is None:
-                    # Print the entire column family
+                if column_qualifier is None or column_qualifier == "":
+                    # Imprimir toda la columna familia
                     print(f"\nColumn family '{column_family}' in row '{row_key}', table '{table_name}':")
                     for qualifier, values in row[column_family].items():
-                        if isinstance(values, dict):
-                            print(f"  Column:{column_family}:{qualifier}, {values}")
-                        else:
+                        if qualifier == column_qualifier:
+                            print(f" Column:{column_family}:{qualifier}")
+                        elif isinstance(values, dict):
                             for ts, value in values.items():
-                                print(f"  Column:{column_family}:{qualifier}:{ts}, {value}")
-                elif column_qualifier in row[column_family]:
-                    if timestamp is None:
-                        # Print all values for the column qualifier
-                        print(f"\nColumn qualifier '{column_qualifier}' in row '{row_key}', column family '{column_family}', table '{table_name}':")
-                        for ts, value in row[column_family][column_qualifier].items():
-                            print(f"  {ts}, {value}")
+                                print(f" Column:{column_family}:{qualifier}:{ts}, {value}")
+                        else:
+                            print(f" Column:{column_family}:{qualifier}, {values}")
+
+                elif isinstance(row[column_family][column_qualifier], dict):
+                    if timestamp is None or timestamp == "":
+                        # Imprimir todos los valores para el column_qualifier
+                        if isinstance(row[column_family][column_qualifier], dict):
+                            for ts, value in row[column_family][column_qualifier].items():
+                                print(f" {ts}, {value}")
+                        else:
+                            print(f" {row[column_family][column_qualifier]}")
+
                     else:
                         timestamp_str = f"Timestamp{timestamp}"
                         if timestamp_str in row[column_family][column_qualifier]:
-                            # Print the value for the specified timestamp
+                            # Imprimir el valor para el timestamp especificado
                             value = row[column_family][column_qualifier][timestamp_str]
                             print(f"\nValue for row '{row_key}', column '{column_family}:{column_qualifier}', timestamp '{timestamp}' in table '{table_name}':")
-                            print(f"  {value}")
+                            print(f" {value}")
                         else:
                             print(f"Timestamp '{timestamp}' not found for row '{row_key}', column '{column_family}:{column_qualifier}' in table '{table_name}'")
                 else:
-                    print(f"Column qualifier '{column_qualifier}' not found in row '{row_key}', column family '{column_family}' in table '{table_name}'")
+                    # Imprimir toda la columna familia
+                    print(f"\nColumn family '{column_family}' in row '{row_key}', table '{table_name}':")
+                    for qualifier, values in row[column_family].items():
+                        if isinstance(values, dict):
+                            for ts, value in values.items():
+                                print(f" Column:{column_family}:{qualifier}:{ts}, {value}")
+                        else:
+                            print(f" aColumn:{column_family}:{qualifier}, {values}")
+
             else:
                 print(f"Column family '{column_family}' not found in row '{row_key}' in table '{table_name}'")
 
     if not row_found:
         print(f"Row '{row_key}' not found in table '{table_name}'")
+
+
+
 
 def scan(table_name):
     

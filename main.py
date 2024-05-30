@@ -41,15 +41,181 @@ import pandas as pd
 
 from hbase import * 
 
-# Crear tabla 
-# column_families = ["Details", "Cast", "Metadata"]
-# create("new2", column_families)
+# Presentación de H-Base From Scratch
 
 # Listar tablas
 # list_table()
 
-# Desactivar tablas
-# disable('new')
+# Crear tabla sin column_families
+"""""
+
+column_families = []
+create("prueba1", column_families)
+
+"""""
+
+# Crear tabla con una column_family
+
+"""""
+column_families = ["CF1"]
+create("prueba1", column_families)
+"""""
+
+# Listar tablas
+# list_table()
+
+# Crear tabla con tres column_family
+"""""
+column_families = ["CF1", "CF2", "CF3"]
+create("prueba2", column_families)
+"""""
+
+# Describe prueba2
+# describe_table("prueba2")
+
+#Listar tablas
+#list_table()
+
+
+# Insertar un registro a CF1,CF2,CF3
+
+"""""
+table = "prueba2"
+row_key = "0001"
+family = ["CF1","CF2","CF3"]
+qualifier = "abc"
+value = "CQ"
+
+put(table, row_key, family, qualifier, value)
+
+"""""
+
+# Actualizar Celda CF2
+
+"""""
+table = "prueba2"
+row_key = "0001"
+family = "CF3"
+qualifier = "abc"
+value = "MarioGM54"
+
+
+put(table, row_key, family, qualifier, value)
+
+"""""
+
+# Revisar is enable prueba2
+#is_enabled("prueba2")
+
+
+# Desactivar tabla 2
+#disable('prueba2')
+
+
+# Insertar solo un valor CQ (NO DEBE PERMITIR)
+
+"""""
+table = "prueba2"
+row_key = "XASXS"
+family = "dSXSA"
+qualifier = "OCHOA"
+value = "CQ"
+"""""
+
+#put(table, row_key, family, qualifier, value)
+
+# Revisar is disabled
+
+#is_enabled("prueba2")
+
+# Deshabilitar "prueba2" 
+#disable("prueba2")
+
+
+
+# Habilitar "prueba2"
+#enabled("prueba2")
+
+# Habilitar "prueba2" (indicar que ya esta habilitada)
+#enabled("prueba2")
+
+
+# Insertar un registro en "prueba2" con un valor en un CQ unicamente
+""""
+table = "prueba2"
+row_key = "00002"
+family = "Nose"
+qualifier = "Hola"
+value = ""
+
+put(table, row_key, family, qualifier, value)
+
+"""""
+
+#Insertar un registro en "prueba1" con un valor en un CQ unicamente
+
+"""""
+table = "prueba1"
+row_key = "00002"
+family = "Nose"
+qualifier = "Hola"
+value = ""
+
+
+put(table, row_key, family, qualifier, value)
+
+"""""
+
+# Obtener primer registro de "prueba2" sin especificar CF ni CQ en formato legible
+
+"""""
+table = "prueba2"
+row_key = "0001"
+family = ""
+qualifier = ""
+timestamp = ""
+
+get(table, row_key, family, qualifier, timestamp)
+"""""
+
+# Obtener primer registro de "prueba2" con CF especificado en formato legible
+
+"""""
+table = "prueba2"
+row_key = "0001"
+family = "CF1"
+qualifier = ""
+timestamp = ""
+
+get(table, row_key, family, qualifier, timestamp)
+"""""
+
+
+# Obtener primer registro de "prueba2" con CF:CQ especificados en formato legible
+
+
+table = "prueba2"
+row_key = "0001"
+family = "CF1"
+qualifier = "abc"
+timestamp = ""
+
+
+get(table, row_key, family, qualifier, timestamp)
+
+
+# Obtener primer registro de "prueba2" con CF:CQ y version especificados en formato legible
+
+
+"""""
+table = "prueba2"
+row_key = "0001"
+family = "CF3"
+qualifier = "abc"
+timestamp = "Timestamp1717041518593"
+
+get(table, row_key, family, qualifier)
+"""""
 
 
 
@@ -75,7 +241,7 @@ value = "Renatto Guzman"
 
 #put(table, row_key, family, qualifier, value)
 
-scan("movies")
+#scan("movies")
 #scan("shows")
 
 #get(table, row_key, family, qualifier)

@@ -2,5 +2,8 @@
   "movies": false,
   "shows": false,
   "new": false,
-  "new2": false
+  "new2": false,
+  "new3": false,
+  "prueba2": false,
+  "prueba1": false
 }
