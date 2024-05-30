@@ -64,11 +64,15 @@ def execute_command():
 
         try:
             if command == "alter":
-                if len(args) < 2:
+                if len(args) < 3:
                     raise TypeError("Invalid arguments")
                 table_name = args[0]
-                new_column_families = args[1:]
-                fun_dict[command](table_name, new_column_families)
+                action = args[2]
+                if action not in ["add", "modify", "delete"]:
+                    raise TypeError("Invalid action for alter")
+                new_column_families = args[1].split(',')
+                details = args[3].split(',') if len(args) > 3 else None
+                fun_dict[command](table_name, new_column_families, action, details)
             elif command == "search":
                 if len(args) != 4:
                     raise TypeError("Invalid arguments")
@@ -90,7 +94,11 @@ def execute_command():
                 if len(args) != 5:
                     raise TypeError("Invalid arguments")
                 table_name, row_key, column_family, column_qualifier, timestamp = args
-                if timestamp == "":
+                if column_family == "None":
+                    column_family = None
+                if column_qualifier == "None":
+                    column_qualifier = None
+                if timestamp == "None":
                     timestamp = None
                 fun_dict[command](table_name, row_key, column_family, column_qualifier, timestamp)
             else:
