@@ -75,6 +75,24 @@ def execute_command():
                 table_name, column_family, column_qualifier, value = args
                 result_row_keys = fun_dict[command](table_name, column_family, column_qualifier, value)
                 print(f"Rows with {column_family}:{column_qualifier}='{value}': {result_row_keys}")
+            elif command == "create":
+                if len(args) < 2:
+                    raise TypeError("Invalid arguments")
+                table_name = args[0]
+                column_families = args[1].split(',')
+                fun_dict[command](table_name, column_families)
+            elif command == "put":
+                if len(args) < 5:
+                    raise TypeError("Invalid arguments")
+                table_name, row_key, column_family, column_qualifier, value = args
+                fun_dict[command](table_name, row_key, column_family, column_qualifier, value)
+            elif command == "get":
+                if len(args) != 5:
+                    raise TypeError("Invalid arguments")
+                table_name, row_key, column_family, column_qualifier, timestamp = args
+                if timestamp == "":
+                    timestamp = None
+                fun_dict[command](table_name, row_key, column_family, column_qualifier, timestamp)
             else:
                 fun_dict[command](*args)
         except TypeError:

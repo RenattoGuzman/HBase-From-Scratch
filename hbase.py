@@ -159,9 +159,6 @@ def drop_table(table_name):
         print(f"Table '{table_name}' does not exist")
         return
     
-    if not is_enabled(table_name):
-        print(f"Table '{table_name}' is disabled. Cannot perform write operations.")
-        return
     
     status_file_path = "data/disable_table_status.json"
     
@@ -349,7 +346,9 @@ def get(table_name, row_key, column_family=None, column_qualifier=None, timestam
                             print(f"\nValue for row '{row_key}', column '{column_family}:{column_qualifier}', timestamp '{timestamp}' in table '{table_name}':")
                             print(f" {value}")
                         else:
-                            print(f"Timestamp '{timestamp}' not found for row '{row_key}', column '{column_family}:{column_qualifier}' in table '{table_name}'")
+                            value = row[column_family][column_qualifier]
+                            print(f"\nValue for row '{row_key}', column '{column_family}:{column_qualifier}',' in table '{table_name}':")
+                            print(f" {value}")
                 else:
                     # Imprimir toda la columna familia
                     print(f"\nColumn family '{column_family}' in row '{row_key}', table '{table_name}':")
