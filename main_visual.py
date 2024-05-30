@@ -24,7 +24,7 @@ fun_dict = {
     "create": create,
     "list_table": list_table,
     "disable": disable,
-    "enabled": enabled,
+    "enable": enabled,
     "is_enabled": is_enabled,
     "describe": describe_table,
     "drop": drop_table,

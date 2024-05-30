@@ -227,7 +227,7 @@ def describe_table(table_name):
     print(f"\nTable '{table_name}' description:\n")
     
     # Necesito is table_enabled
-    #print(f"Is enabled: {'Yes' if is_table_enabled(table_name) else 'No'}")
+    print(f"Is enabled: {'Yes' if is_enabled(table_name) else 'No'}")
     print("Column Families:")
     for family in column_families:
         print(f"- {family}")
@@ -369,20 +369,22 @@ def scan(table_name):
     print("\n  TABLE: " + table_name.upper() + "\n")
         
         
-    # TODO: Revisar que esté enabled la tabla
-        
-    table_data = get_file_data(table_name)
-    print("ROWKEY   COLUMN+CELL")
-    for row in table_data:
-        rowkey = row['rowkey']
-        for column_family, column_data in row.items():
-            if column_family != 'rowkey':
-                for column_qualifier, values in column_data.items():
-                    if isinstance(values, dict):
-                        print(f" {rowkey}    Column:{column_family}:{column_qualifier}, {values}")
-                    else:
-                        for timestamp, value in values.items():
-                            print(f" {rowkey}    Column:{column_family}:{column_qualifier}:{timestamp}, {value}")
+    if is_enabled(table_name):        
+        table_data = get_file_data(table_name)
+        print("ROWKEY   COLUMN+CELL")
+        for row in table_data:
+            rowkey = row['rowkey']
+            for column_family, column_data in row.items():
+                if column_family != 'rowkey':
+                    for column_qualifier, values in column_data.items():
+                        if isinstance(values, dict):
+                            print(f" {rowkey}    Column:{column_family}:{column_qualifier}, {values}")
+                        else:
+                            for timestamp, value in values.items():
+                                print(f" {rowkey}    Column:{column_family}:{column_qualifier}:{timestamp}, {value}")
+    else: 
+        print(f"Table '{table_name}' is disabled")
+        return
 
 def delete(table_name, row_key, column_family=None, column_qualifier=None, timestamp=None):
     if not table_exists(table_name):
