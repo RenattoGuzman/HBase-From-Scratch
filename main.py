@@ -174,6 +174,8 @@ timestamp = "Timestamp1717047936412"
 
 get(table, row_key, family, qualifier)
 """""
+#get "prueba2" "0001" "CF3" "CQ3" "Timestamp1717047936412"
+
 
 # 26. Scan de "prueba2" en formato legible
 # scan("prueba2")

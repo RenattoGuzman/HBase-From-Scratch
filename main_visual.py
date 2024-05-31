@@ -94,14 +94,22 @@ def execute_command():
             elif command == "get":
                 if len(args) != 5:
                     raise TypeError("Invalid arguments")
-                table_name, row_key, column_family, column_qualifier, timestamp = args
-                if column_family == "None":
-                    column_family = None
-                if column_qualifier == "None":
-                    column_qualifier = None
-                if timestamp == "None":
-                    timestamp = None
+                
+                # Eliminar comillas de los parámetros
+                table_name = args[0].strip('"')
+                row_key = args[1].strip('"')
+                column_family = args[2].strip('"')
+                column_qualifier = args[3].strip('"')
+                timestamp = args[4].strip('"')
+                
+                # Interpretar cadenas vacías como None
+                column_family = None if column_family == "" else column_family
+                column_qualifier = None if column_qualifier == "" else column_qualifier
+                timestamp = None if timestamp == "" else timestamp
+                
                 fun_dict[command](table_name, row_key, column_family, column_qualifier, timestamp)
+
+
             else:
                 fun_dict[command](*args)
         except TypeError:
