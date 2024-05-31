@@ -134,7 +134,7 @@ def is_enabled(table_name):
     print(f"Table '{table_name}' enabled status: {enabled}")
     return enabled
 
-def alter_table(table_name, new_column_families):
+def alter_table(table_name, new_column_families, action, details=None):
     if not table_exists(table_name):
         print(f"Table '{table_name}' does not exist")
         return
@@ -145,14 +145,39 @@ def alter_table(table_name, new_column_families):
 
     table_data = get_file_data(table_name)
     
-    # Check if the new column families already exist and add them if not
-    for row in table_data:
-        for family in new_column_families:
-            if family not in row:
-                row[family] = {}
+    if action == "add":
+        # Add new column families
+        for row in table_data:
+            for family in new_column_families:
+                if family not in row:
+                    row[family] = {}
+        print(f"Table '{table_name}' altered successfully with new column families: {new_column_families}")
+    
+    elif action == "modify":
+        # Modify existing column families (rename in this case)
+        if details is None or len(new_column_families) != len(details):
+            print("Details for modify action must be provided and match the number of new column families")
+            return
+        
+        for i, row in enumerate(table_data):
+            for old_family, new_family in zip(new_column_families, details):
+                if old_family in row:
+                    row[new_family] = row.pop(old_family)
+        print(f"Table '{table_name}' altered successfully with modified column families: {details}")
+    
+    elif action == "delete":
+        # Delete existing column families
+        for row in table_data:
+            for family in new_column_families:
+                if family in row:
+                    del row[family]
+        print(f"Table '{table_name}' altered successfully. Deleted column families: {new_column_families}")
+    
+    else:
+        print(f"Invalid action: {action}. Supported actions are 'add', 'modify', 'delete'.")
+        return
     
     save_file_data(table_name, table_data)
-    print(f"Table '{table_name}' altered successfully with new column families: {new_column_families}")
 
 def drop_table(table_name):
     if not table_exists(table_name):
@@ -276,8 +301,8 @@ def put(table_name, row_key, column_family, column_qualifier, value, timestamp=N
 
                 # Actualizar el column_qualifier existente o agregar uno nuevo
                 if column_qualifier in row[family]:
-                    # Si el column_qualifier ya existe, simplemente actualiza su valor
-                    row[family][column_qualifier] = {f"Timestamp{timestamp}": value}
+                    # Si el column_qualifier ya existe, mantener los valores anteriores y agregar el nuevo
+                    row[family][column_qualifier][f"Timestamp{timestamp}"] = value
                 else:
                     row[family][column_qualifier] = {f"Timestamp{timestamp}": value}
             break
@@ -303,7 +328,7 @@ def get(table_name, row_key, column_family=None, column_qualifier=None, timestam
         if row.get('rowkey') == row_key:  # Usar.get() para manejar posibles errores de KeyError
             row_found = True
 
-            if column_family == "" and column_qualifier == "":
+            if column_family == "" or column_family == None and column_qualifier == "" or column_qualifier == None:
                 # Imprimir toda la fila
                 print(f"\nRow '{row_key}' in table '{table_name}':")
                 for family, data in row.items():
