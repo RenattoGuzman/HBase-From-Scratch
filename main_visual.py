@@ -39,6 +39,7 @@ fun_dict = {
     "truncate": truncate,
     "update_many": update_many,
     "search": search_by_index,
+    "insert_many": insert_many,
     # Para agregar una funcion solamente se agrega el nombre de la funcion y el nombre del comando
 }
 list_of_commands = list(fun_dict.keys())
@@ -51,7 +52,7 @@ root.configure(bg=colors["background"])
 
 # Function to handle command execution
 def execute_command():
-    input_text = command_entry.get()
+    input_text = command_entry.get("1.0", "end-1c")
     command_list = input_text.split(" ")
     command, *args = command_list
     output_text.delete("1.0", tk.END)
@@ -96,7 +97,7 @@ def execute_command():
             else:
                 fun_dict[command](*args)
         except TypeError:
-            output_text.insert(tk.END, f"Invalid arguments, type '{command}?' for more information\n")
+            output_text.insert(tk.END, f"Invalid command, try again\n")
 
         sys.stdout = sys.__stdout__  # Reset stdout to its original value
 
@@ -107,7 +108,7 @@ def execute_command():
     elif command == "exit":
         root.quit()
     else:
-        output_text.insert(tk.END, "Command not found, type 'help' for a list of commands\n")
+        output_text.insert(tk.END, "Command not found, try again\n")
     #command_entry.delete(0, tk.END)
 
 title_frame = tk.Frame(root, bg=colors["background"])
@@ -123,7 +124,7 @@ command_frame.pack(pady=20)
 command_label = tk.Label(command_frame, text="Entrada de texto", font=("Tahoma", 12, "bold"), bg=colors["background"], fg=colors["secondary"])
 command_label.pack(side=tk.LEFT, padx=5)
 
-command_entry = tk.Entry(command_frame, font=("Lucida Console", 14), bg=colors["accent1"], fg=colors["background"])
+command_entry = tk.Text(command_frame, font=("Lucida Console", 14), bg=colors["accent1"], fg=colors["background"], width=50, height=5)
 command_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
 execute_button = tk.Button(command_frame, text="Execute", font=("Tahoma", 12, "bold"), bg=colors["primary"], fg="white", command=execute_command)

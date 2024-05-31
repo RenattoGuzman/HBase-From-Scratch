@@ -486,6 +486,30 @@ def update_many(table_name, updates):
                     put(table_name, row_key, column_family, column_qualifier, value, timestamp)
 
     print(f"Updated {len(updates)} rows in table '{table_name}'")
+    
+def insert_many(table_name, *rows):
+    if not table_exists(table_name):
+        print(f"Table '{table_name}' does not exist")
+        return
+
+    for row in rows:
+        # Elimina los paréntesis y divide en componentes
+        row = row.strip("()")
+        row_key, column_family_col, value = row.split(",")
+        
+        # Divide column_family_col en column_family y column_qualifier
+        column_family, column_qualifier = column_family_col.split(":")
+        
+        # Limpia los espacios en blanco
+        row_key = row_key.strip()
+        column_family = column_family.strip()
+        column_qualifier = column_qualifier.strip()
+        value = value.strip()
+        
+        # Llama a la función put con los parámetros correctos
+        put(table_name, row_key, column_family, column_qualifier, value)
+
+    print(f"Inserted {len(rows)} rows into table '{table_name}'")
 
 def update_index(table_name, column_family, column_qualifier, value, row_key):
     index_file_path = f"data/index_{table_name}_{column_family}_{column_qualifier}.json"
@@ -521,4 +545,3 @@ def search_by_index(table_name, column_family, column_qualifier, value):
         return row_keys
     else:
         return []
-    
